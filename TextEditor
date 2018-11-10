@@ -1,0 +1,53 @@
+package ee552;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+public class TextEditor {
+    public static void main(String[] args) {
+        JFrame jFrame = new JFrame("TextEditor");
+        jFrame.setSize(600, 400);
+        Container container = jFrame.getContentPane();
+        container.setLayout(new BorderLayout());
+        JTextArea textArea = new JTextArea(10, 15);
+        textArea.setTabSize(4);
+        textArea.setFont(new Font("New Times Roman", Font.PLAIN, 20));
+        textArea.setLineWrap(true);
+        container.add(textArea);
+
+        JMenuBar menuBar = new JMenuBar();
+        jFrame.setJMenuBar(menuBar);
+        JMenu menu1 = new JMenu("File");
+        JMenu menu2 = new JMenu("Build");
+        menuBar.add(menu1);
+        menuBar.add(menu2);
+
+        JMenuItem newItem = new JMenuItem("New");
+        JMenuItem saveItem = new JMenuItem("Save");
+        JMenuItem openItem = new JMenuItem("Open");
+        JMenuItem quitItem = new JMenuItem("Quit");
+        menu1.add(newItem);
+        menu1.add(saveItem);
+        menu1.add(openItem);
+        menu1.add(quitItem);
+        JMenuItem compileItem = new JMenuItem("Compile");
+        JMenuItem runItem = new JMenuItem("Run");
+        menu2.add(compileItem);
+        menu2.add(runItem);
+
+        ActionListener menuListener = e -> {
+            String cmd = e.getActionCommand();
+            switch (cmd) {
+                case "Quit":
+                    JOptionPane.showConfirmDialog(null, "Do you want to save before leaving?");
+                    System.exit(0);
+                    break;
+                default:
+            }
+        };
+
+        quitItem.addActionListener(menuListener);
+        jFrame.setVisible(true);
+    }
+}
