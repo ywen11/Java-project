@@ -1,0 +1,37 @@
+package ee552;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+
+public class CommonWordBigrams {
+    public static void main(String[] args) throws IOException {
+        String[] commonWords =
+                new String[]{"and", "or", "but", "yes", "no", "can", "will", "should", "if only"};
+        Set<String> set = new HashSet<>(Arrays.asList(commonWords));
+        HashMap<String, Integer> map = new HashMap<>();
+
+        String fileName = "Frankenstein.txt";
+        Scanner input = new Scanner(new File(fileName));
+        while (input.hasNext()) {
+            String line = input.nextLine();
+            String[] temp = line.split(" ");
+            for (int i = 0; i < temp.length; i++) {
+                if (set.contains(temp[i])) {
+                    if (i - 1 >= 0) {
+                        map.put(temp[i - 1], map.getOrDefault(temp[i - 1], 0) + 1);
+                    }
+                    if (i + 1 < temp.length) {
+                        map.put(temp[i + 1], map.getOrDefault(temp[i + 1], 0) + 1);
+                    }
+                }
+            }
+        }
+
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if (entry.getValue() >= 50) {
+                System.out.print(String.format("%-5s %-5s\n", entry.getKey(), entry.getValue()));
+            }
+        }
+    }
+}
