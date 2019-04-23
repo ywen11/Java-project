@@ -1,1 +1,1 @@
-# ee552Homework
+# Some Java project
